@@ -4,10 +4,10 @@ This is a tiny library for building transitive SQL and Elasticsearch
 queries. It's really more of a design pattern than a feature complete
 solution. 
 
-I wrote up a blog post about the design of the library
-[here](https://edbabcock.com/composable-queries.html). It explains the
-design pattern and the trade-offs to using it. Small SQL examples are
-shown in the post.
+For more info I wrote up a blog post about the design of the library
+[here](https://edbabcock.com/composable-queries.html). It talks more
+about the design pattern and the trade-offs for using it. There are also
+some small SQL examples in the post.
 
 
 ## Recent Release
@@ -27,7 +27,7 @@ uses it's data structure DSL.
 ```clj
 (require '[dorali.sql.core :as sql])
 
-((query>
+((sql/query>
   {:select [:emp_id :fname :lname]
    :from [:employee]
    :where (term> := :lname (=> :surname))})
