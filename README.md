@@ -27,15 +27,17 @@ uses it's data structure DSL.
 ```clj
 (require '[dorali.sql.core :as sql])
 
-((sql/query>
-  {:select [:emp_id :fname :lname]
-   :from [:employee]
-   :where (term> := :lname (=> :surname))})
-   {:surname \"smith\"})
+(def get-employee
+  (sql/query>
+   {:select [:emp_id :fname :lname]
+    :from [:employee]
+    :where (term> := :lname (=> :surname))}))
+
+(get-employee {:surname "smith"})
 
 => {:select [:emp_id :fname :lname],
     :from [:employee],
-    :where [:= :lname \"smith\"]}
+    :where [:= :lname "smith"]}
 ```
 
 Elasticsearch queries are written in a similar data structure DSL that
@@ -45,11 +47,14 @@ can be passed to a native or REST client.
 ```clj
 (require '[dorali.es.core :as es])
 
-((es/query>
-    {:query
-     {:match-all (constantly {})}
-     :size (es/default> 10 :size)})
-   {:size 5})
+(def get-everything 
+  (es/query>
+   {:query
+    ;; constantly keeps the {}, it escapes the transitive
+    {:match-all (constantly {})}
+    :size (es/default> 10 :size)}))
+
+(get-everything {:size 5})
 
 => {:query
     {:match-all {}}
