@@ -31,7 +31,7 @@ uses it's data structure DSL.
   (sql/query>
    {:select [:emp_id :fname :lname]
     :from [:employee]
-    :where (term> := :lname (=> :surname))}))
+    :where (sql/term> := :lname (sql/=> :surname))}))
 
 (get-employee {:surname "smith"})
 
